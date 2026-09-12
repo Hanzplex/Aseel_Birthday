@@ -108,10 +108,17 @@ function drawVisualizer() {
     }
 }
 
-// Trigger on first click anywhere — bypasses browser autoplay block
-document.addEventListener('click', () => {
+// Try to start immediately — harmless if the AudioContext stays suspended
+// until a gesture is available; the listeners below resume it as soon as
+// any interaction (not just a click) happens.
+initVisualizer();
+
+const resumeVisualizerAudio = () => {
     initVisualizer();
     if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume();
     }
-}, { once: false });
+};
+['click', 'pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll'].forEach(evt => {
+    document.addEventListener(evt, resumeVisualizerAudio, { passive: true });
+});
