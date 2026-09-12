@@ -1429,6 +1429,19 @@ let isPlaying = false;
 
 birthdayAudio.volume = 0.6;
 
+function markMusicPlaying() {
+    musicControl.innerHTML = '⏸';
+    musicControl.classList.add('playing');
+    musicControl.title = 'Pause Music';
+    isPlaying = true;
+    // visualizer.js routes this element's output through its own AudioContext —
+    // make sure that context is actually running, or the audio element can report
+    // "playing" while producing no audible sound.
+    if (typeof audioCtx !== 'undefined' && audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+}
+
 function toggleMusic() {
     if (isPlaying) {
         birthdayAudio.pause();
@@ -1437,18 +1450,26 @@ function toggleMusic() {
         musicControl.title = 'Play Music';
         isPlaying = false;
     } else {
-        birthdayAudio.play().then(() => {
-            musicControl.innerHTML = '⏸';
-            musicControl.classList.add('playing');
-            musicControl.title = 'Pause Music';
-            isPlaying = true;
-        }).catch(error => {
-
+        birthdayAudio.play().then(markMusicPlaying).catch(error => {
         });
     }
 }
 
 musicControl.addEventListener('click', toggleMusic);
+
+// Try to start the music the moment the page is ready, with no interaction at all.
+// Browsers only allow this in some cases (PWA installs, returning visitors, etc.) —
+// when they don't, the fallback below catches the very first interaction of ANY kind.
+birthdayAudio.play().then(markMusicPlaying).catch(() => {
+    const startOnFirstGesture = () => {
+        if (isPlaying) return;
+        birthdayAudio.play().then(markMusicPlaying).catch(() => {});
+    };
+    const gestureEvents = ['pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll'];
+    gestureEvents.forEach(evt => {
+        window.addEventListener(evt, startOnFirstGesture, { once: true, passive: true });
+    });
+});
 
 birthdayAudio.addEventListener('ended', () => {
 });
