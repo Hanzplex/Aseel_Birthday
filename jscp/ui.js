@@ -38,68 +38,30 @@ function returnConfettiToPool(confetti) {
 }
 
 function checkOrientation() {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // Rotation is no longer required — the site now runs in portrait or
+    // landscape on any phone. We keep the `isLandscape` flag (other code
+    // reads it) but always treat the site as ready to run.
     const orientationLock = document.getElementById('orientation-lock');
     const matrixCanvas = document.getElementById('matrix-rain');
     const mainCanvas = document.querySelector('.canvas');
     const bookContainer = document.querySelector('.book-container');
     const book = document.getElementById('book');
 
-    if (!isMobile) {
-        isLandscape = true;
-        orientationLock.style.display = 'none';
-        matrixCanvas.style.display = 'block';
-        mainCanvas.style.display = 'block';
-        if (bookContainer) bookContainer.style.display = 'block';
-        if (book) book.style.display = 'block';
-        startWebsite();
-    } else {
-        const mediaQuery = window.matchMedia("(orientation: landscape)");
-        isLandscape = mediaQuery.matches;
+    isLandscape = true;
 
-        if (isLandscape) {
-            orientationLock.style.display = 'none';
-            matrixCanvas.style.display = 'block';
-            mainCanvas.style.display = 'block';
-            if (bookContainer) bookContainer.style.display = 'block';
-            if (book) book.style.display = 'block';
-            startWebsite();
+    if (orientationLock) orientationLock.style.display = 'none';
+    if (matrixCanvas) matrixCanvas.style.display = 'block';
+    if (mainCanvas) mainCanvas.style.display = 'block';
+    if (bookContainer) bookContainer.style.display = 'block';
+    if (book) book.style.display = 'block';
 
-            setTimeout(() => {
-                forceResizeMatrix();
-            }, 100);
-        } else {
-            orientationLock.style.display = 'flex';
-            matrixCanvas.style.display = 'none';
-            mainCanvas.style.display = 'none';
-            if (bookContainer) bookContainer.style.display = 'none';
-            if (book) book.style.display = 'none';
-            stopWebsite();
-        }
+    startWebsite();
 
-        mediaQuery.addEventListener('change', (e) => {
-            isLandscape = e.matches;
-            if (isLandscape) {
-                orientationLock.style.display = 'none';
-                matrixCanvas.style.display = 'block';
-                mainCanvas.style.display = 'block';
-                if (bookContainer) bookContainer.style.display = 'block';
-                if (book) book.style.display = 'block';
-                startWebsite();
-
-                setTimeout(() => {
-                    forceResizeMatrix();
-                }, 100);
-            } else {
-                orientationLock.style.display = 'flex';
-                matrixCanvas.style.display = 'none';
-                mainCanvas.style.display = 'none';
-                if (bookContainer) bookContainer.style.display = 'none';
-                if (book) book.style.display = 'none';
-                stopWebsite();
-            }
-        });
-    }
+    // Re-fit the matrix rain whenever the phone is rotated or resized,
+    // instead of gating the whole site behind orientation.
+    window.addEventListener('orientationchange', () => {
+        setTimeout(forceResizeMatrix, 150);
+    });
 }
 function startWebsite() {
     if (!matrixInterval) {
@@ -226,9 +188,7 @@ function initMatrixRain() {
 S = {
     initialized: false,
     init: function () {
-        if (!isLandscape && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            return;
-        }
+        // No orientation requirement — runs on mobile in any orientation.
         var action = window.location.href,
             i = action.indexOf('?websiteId=');
 
@@ -1429,19 +1389,6 @@ let isPlaying = false;
 
 birthdayAudio.volume = 0.6;
 
-function markMusicPlaying() {
-    musicControl.innerHTML = '⏸';
-    musicControl.classList.add('playing');
-    musicControl.title = 'Pause Music';
-    isPlaying = true;
-    // visualizer.js routes this element's output through its own AudioContext —
-    // make sure that context is actually running, or the audio element can report
-    // "playing" while producing no audible sound.
-    if (typeof audioCtx !== 'undefined' && audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
-    }
-}
-
 function toggleMusic() {
     if (isPlaying) {
         birthdayAudio.pause();
@@ -1450,26 +1397,18 @@ function toggleMusic() {
         musicControl.title = 'Play Music';
         isPlaying = false;
     } else {
-        birthdayAudio.play().then(markMusicPlaying).catch(error => {
+        birthdayAudio.play().then(() => {
+            musicControl.innerHTML = '⏸';
+            musicControl.classList.add('playing');
+            musicControl.title = 'Pause Music';
+            isPlaying = true;
+        }).catch(error => {
+
         });
     }
 }
 
 musicControl.addEventListener('click', toggleMusic);
-
-// Try to start the music the moment the page is ready, with no interaction at all.
-// Browsers only allow this in some cases (PWA installs, returning visitors, etc.) —
-// when they don't, the fallback below catches the very first interaction of ANY kind.
-birthdayAudio.play().then(markMusicPlaying).catch(() => {
-    const startOnFirstGesture = () => {
-        if (isPlaying) return;
-        birthdayAudio.play().then(markMusicPlaying).catch(() => {});
-    };
-    const gestureEvents = ['pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll'];
-    gestureEvents.forEach(evt => {
-        window.addEventListener(evt, startOnFirstGesture, { once: true, passive: true });
-    });
-});
 
 birthdayAudio.addEventListener('ended', () => {
 });
