@@ -41,7 +41,6 @@ function checkOrientation() {
     // Rotation is no longer required — the site now runs in portrait or
     // landscape on any phone. We keep the `isLandscape` flag (other code
     // reads it) but always treat the site as ready to run.
-    const orientationLock = document.getElementById('orientation-lock');
     const matrixCanvas = document.getElementById('matrix-rain');
     const mainCanvas = document.querySelector('.canvas');
     const bookContainer = document.querySelector('.book-container');
@@ -49,7 +48,6 @@ function checkOrientation() {
 
     isLandscape = true;
 
-    if (orientationLock) orientationLock.style.display = 'none';
     if (matrixCanvas) matrixCanvas.style.display = 'block';
     if (mainCanvas) mainCanvas.style.display = 'block';
     if (bookContainer) bookContainer.style.display = 'block';
