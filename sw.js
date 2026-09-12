@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bday-site-v2';
+const CACHE_NAME = 'bday-site-v3';
 const urlsToCache = [
   './',
   './index.html',
@@ -14,11 +14,26 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
         return cache.addAll(urlsToCache);
       })
+  );
+});
+
+// Remove any old cache versions so a code update actually reaches the phone
+// instead of being shadowed by yesterday's cached ui.js/settings.js.
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames
+          .filter(name => name !== CACHE_NAME)
+          .map(name => caches.delete(name))
+      );
+    }).then(() => self.clients.claim())
   );
 });
 
