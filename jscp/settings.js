@@ -33,7 +33,7 @@ window.lastIsSaveState = false;
 
 const musicOptions = [
     { value: './music/aseel.mp3', label: 'Happy Birthday Aseel' },
-    { value: './music/custom.mp3', label: 'Custom Music (Add your own)' }
+    { value: './music/spiderAseel.mp3', label: 'Custom Music (Add your own)' }
 ];
 const gifOptions = [
     { value: '', label: 'None' }
