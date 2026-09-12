@@ -3,8 +3,8 @@ const settingsModal = document.getElementById('settingsModal');
 const closeModal = document.querySelector('.close');
 let pages = [];
 const applySettingsButton = document.getElementById('applySettings');
-window.settings = {
-    music: './music/spiderAseel.mp3',
+let settings = {
+    music: './music/this december.mp3',
     countdown: 3,
     matrixText: 'HAPPYBIRTHDAY',
     matrixColor1: '#ed1c24', 
@@ -14,14 +14,14 @@ window.settings = {
     gift: '', 
     pages: [
         { image: './image/Birthday!/cover.jpg', content: '' }, 
-        { image: './image/Birthday!/photo1.jpg', content: 'Dear Aseel, you bring so much joy and happiness!' },
-        { image: './image/Birthday!/photo2.jpg', content: 'Next year insahallah you will become Spiderman/woman!' },
-        { image: './image/Birthday!/photo3.jpg', content: 'You are such an amazing and beautiful person!' },
-        { image: './image/Birthday!/photo4.jpg', content: 'Your kindness and warmth touch hearts!' },
-        { image: './image/Birthday!/photo5.jpg', content: 'Wishing you the most wonderful birthday ever!' },
-        { image: './image/Birthday!/photo6.jpg', content: 'May all your dreams come true!' },
-        { image: './image/Birthday!/photo7.jpg', content: 'You deserve all the happiness!' },
-        { image: './image/Birthday!/photo8.jpg', content: 'Have the best day!' },
+        { image: './image/Birthday!/photo1.jpg', content: 'Dear Aseel, we are happy to have youin our lives ' },
+        { image: './image/Birthday!/photo2.jpg', content: 'Wishing to become Spiderman/woman ' },
+        { image: './image/Birthday!/photo3.jpg', content: 'You are such an amazing and beautiful person! ' },
+        { image: './image/Birthday!/photo4.jpg', content: 'Your kindness and warmth touch hearts! ' },
+        { image: './image/Birthday!/photo5.jpg', content: 'Wishing you the most wonderful birthday ever! ' },
+        { image: './image/Birthday!/photo6.jpg', content: 'May all your dreams come true! ' },
+        { image: './image/Birthday!/photo7.jpg', content: 'You deserve all the happiness! ' },
+        { image: './image/Birthday!/photo8.jpg', content: 'Have the best day! ' },
         { image: './image/Birthday!/9.jpg', content: '' } 
     ],
     enableBook: true,
@@ -32,7 +32,6 @@ window.settings = {
 window.lastIsSaveState = false;
 
 const musicOptions = [
-    { value: './music/spiderAseel.mp3', label: 'Spider-Man Theme (Aseel)' },
     { value: './music/aseel.mp3', label: 'Happy Birthday Aseel' },
     { value: './music/custom.mp3', label: 'Custom Music (Add your own)' }
 ];
@@ -279,7 +278,7 @@ function resetWebsiteState() {
 function initializeDefaultSettings() {
 
     window.settings = {
-        music: './music/spiderAseel.mp3',
+        music: './music/aseel.mp3',
         countdown: 3,
         matrixText: 'HAPPYBIRTHDAY',
         matrixColor1: '#ed1c24', 
@@ -305,13 +304,13 @@ function initializeDefaultSettings() {
     window.settings.pages = [
             { image: './image/Birthday!/cover.jpg', content: '' }, 
             { image: './image/Birthday!/photo1.jpg', content: 'Dear Aseel, you bring so much joy and happiness!' },
-            { image: './image/Birthday!/photo2.jpg', content: 'Next year insahallah you will become Spiderman/woman!' },
+            { image: './image/Birthday!/photo2.jpg', content: 'Next year inshaallah you will become Spiderman/woman' },
             { image: './image/Birthday!/photo3.jpg', content: 'You are such an amazing and beautiful person!' },
             { image: './image/Birthday!/photo4.jpg', content: 'Your kindness and warmth touch hearts!' },
             { image: './image/Birthday!/photo5.jpg', content: 'Wishing you the most wonderful birthday ever!' },
-            { image: './image/Birthday!/photo6.jpg', content: 'May all your dreams come true!' },
+            { image: './image/Birthday!/photo6.jpg', content: 'May all your dreams come true! ' },
             { image: './image/Birthday!/photo7.jpg', content: 'You deserve all the happiness!' },
-            { image: './image/Birthday!/photo8.jpg', content: 'Have the best day! ' },
+            { image: './image/Birthday!/photo8.jpg', content: 'Have the best day!' },
             { image: './image/Birthday!/9.jpg', content: '' } 
         ];
 
@@ -363,7 +362,6 @@ closeModal.addEventListener('click', () => {
 });
 
 function populateModal() {
-    const settings = window.settings;
     stopMusicPreview();
     const musicSelect = document.getElementById('backgroundMusic');
     musicSelect.innerHTML = musicOptions.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('');
@@ -876,7 +874,7 @@ function saveFormDataToSettings() {
 function updatePricingFromModal() {
     if (window.pricingCalculator) {
         const currentModalSettings = {
-            music: document.getElementById('backgroundMusic')?.value || './music/spiderAseel.mp3',
+            music: document.getElementById('backgroundMusic')?.value || './music/happybirtday_uia.mp3',
             enableBook: document.getElementById('enableBook')?.value === 'true',
             enableHeart: document.getElementById('enableHeart')?.value === 'true',
             isSave: document.getElementById('isSave')?.checked || false,
@@ -1168,18 +1166,11 @@ function isLandscapeMode() {
     return window.innerWidth > window.innerHeight;
 }
 
+// Renamed in spirit only (kept the same name so the one call site above
+// doesn't need to change): this no longer waits for landscape — it just
+// starts the site right away, in whatever orientation the phone is in.
 function tryStartWebsiteWhenLandscape() {
     if (window.isWebsiteReady && typeof startWebsite === 'function') {
-        if (isLandscapeMode()) {
-            startWebsite();
-        } else {
-
-            window.addEventListener('resize', function onResize() {
-                if (isLandscapeMode()) {
-                    startWebsite();
-                    window.removeEventListener('resize', onResize);
-                }
-            });
-        }
+        startWebsite();
     }
 }
