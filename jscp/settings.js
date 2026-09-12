@@ -14,14 +14,14 @@ window.settings = {
     gift: '', 
     pages: [
         { image: './image/Birthday!/cover.jpg', content: '' }, 
-        { image: './image/Birthday!/photo1.jpg', content: 'Dear Aseel, you bring so much joy and happiness! 💕' },
-        { image: './image/Birthday!/photo2.jpg', content: 'Your smile lights up every room you enter! ✨' },
-        { image: './image/Birthday!/photo3.jpg', content: 'You are such an amazing and beautiful person! 🌸' },
-        { image: './image/Birthday!/photo4.jpg', content: 'Your kindness and warmth touch hearts! 💖' },
-        { image: './image/Birthday!/photo5.jpg', content: 'Wishing you the most wonderful birthday ever! 🎉' },
-        { image: './image/Birthday!/photo6.jpg', content: 'May all your dreams come true! ⭐' },
-        { image: './image/Birthday!/photo7.jpg', content: 'You deserve all the happiness! 🌈' },
-        { image: './image/Birthday!/photo8.jpg', content: 'Love you so much! Have the best day! ❤️🎂' },
+        { image: './image/Birthday!/photo1.jpg', content: 'Dear Aseel, you bring so much joy and happiness!' },
+        { image: './image/Birthday!/photo2.jpg', content: 'Next year insahallah you will become Spiderman/woman!' },
+        { image: './image/Birthday!/photo3.jpg', content: 'You are such an amazing and beautiful person!' },
+        { image: './image/Birthday!/photo4.jpg', content: 'Your kindness and warmth touch hearts!' },
+        { image: './image/Birthday!/photo5.jpg', content: 'Wishing you the most wonderful birthday ever!' },
+        { image: './image/Birthday!/photo6.jpg', content: 'May all your dreams come true!' },
+        { image: './image/Birthday!/photo7.jpg', content: 'You deserve all the happiness!' },
+        { image: './image/Birthday!/photo8.jpg', content: 'Have the best day!' },
         { image: './image/Birthday!/9.jpg', content: '' } 
     ],
     enableBook: true,
@@ -304,14 +304,14 @@ function initializeDefaultSettings() {
 
     window.settings.pages = [
             { image: './image/Birthday!/cover.jpg', content: '' }, 
-            { image: './image/Birthday!/photo1.jpg', content: 'Dear Aseel, you bring so much joy and happiness! 💕' },
-            { image: './image/Birthday!/photo2.jpg', content: 'Your smile lights up every room you enter! ✨' },
-            { image: './image/Birthday!/photo3.jpg', content: 'You are such an amazing and beautiful person! 🌸' },
-            { image: './image/Birthday!/photo4.jpg', content: 'Your kindness and warmth touch hearts! 💖' },
-            { image: './image/Birthday!/photo5.jpg', content: 'Wishing you the most wonderful birthday ever! 🎉' },
-            { image: './image/Birthday!/photo6.jpg', content: 'May all your dreams come true! ⭐' },
-            { image: './image/Birthday!/photo7.jpg', content: 'You deserve all the happiness! 💕' },
-            { image: './image/Birthday!/photo8.jpg', content: 'Love you so much! Have the best day! ❤️🎂' },
+            { image: './image/Birthday!/photo1.jpg', content: 'Dear Aseel, you bring so much joy and happiness!' },
+            { image: './image/Birthday!/photo2.jpg', content: 'Next year insahallah you will become Spiderman/woman!' },
+            { image: './image/Birthday!/photo3.jpg', content: 'You are such an amazing and beautiful person!' },
+            { image: './image/Birthday!/photo4.jpg', content: 'Your kindness and warmth touch hearts!' },
+            { image: './image/Birthday!/photo5.jpg', content: 'Wishing you the most wonderful birthday ever!' },
+            { image: './image/Birthday!/photo6.jpg', content: 'May all your dreams come true!' },
+            { image: './image/Birthday!/photo7.jpg', content: 'You deserve all the happiness!' },
+            { image: './image/Birthday!/photo8.jpg', content: 'Have the best day! ' },
             { image: './image/Birthday!/9.jpg', content: '' } 
         ];
 
