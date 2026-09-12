@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bday-site-v3';
+const CACHE_NAME = 'bday-site-v4';
 const urlsToCache = [
   './',
   './index.html',
@@ -10,7 +10,8 @@ const urlsToCache = [
   './jscp/minigame.js',
   './jscp/ui.js',
   './image/logo.png',
-  './music/aseel.mp3'
+  './music/aseel.mp3',
+  './music/spiderAseel.mp3'
 ];
 
 self.addEventListener('install', event => {
