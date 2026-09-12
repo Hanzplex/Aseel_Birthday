@@ -15,7 +15,7 @@ let settings = {
     pages: [
         { image: './image/Birthday!/cover.jpg', content: '' }, 
         { image: './image/Birthday!/photo1.jpg', content: 'Dear Aseel, we are happy to have youin our lives ' },
-        { image: './image/Birthday!/photo2.jpg', content: 'Wishing to become Spiderman/woman ' },
+        { image: './image/Birthday!/photo2.jpg', content: 'Next year inshallah you will become Spiderman/woman ' },
         { image: './image/Birthday!/photo3.jpg', content: 'You are such an amazing and beautiful person! ' },
         { image: './image/Birthday!/photo4.jpg', content: 'Your kindness and warmth touch hearts! ' },
         { image: './image/Birthday!/photo5.jpg', content: 'Wishing you the most wonderful birthday ever! ' },
